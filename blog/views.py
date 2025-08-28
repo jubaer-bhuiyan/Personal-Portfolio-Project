@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from .models import Blog
 
 def allBlogs(request):
-    return render(request, 'blog/allBlogs.html')
+    Blogs = Blog.objects.order_by('-published_date')[:5]
+    return render(request, 'blog/allBlogs.html', {'blogs': Blogs})

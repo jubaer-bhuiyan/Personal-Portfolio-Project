@@ -1,1 +1,9 @@
-Hello Blogs
+<h1>Jubaer's Blog</h1>
+
+{% for blog in blogs %}
+    
+    <h2>{{ blog.title }}</h2>
+    <p>{{ blog.content }}</p>
+    <small>Published on: {{ blog.published_date }}</small>
+
+{% endfor %}
