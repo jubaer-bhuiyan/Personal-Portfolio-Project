@@ -1,13 +1,17 @@
 <h1>Jubaer's Portfolio</h1>
 
+{% load static %}
+
+<a href="{% static  'portfolio/resume.pdf'%}">Resume</a>
+<img src="{% static 'portfolio/JubaerPP.jpeg' %}" alt="Profile Picture">
+
 {% for project in projects %}
-
-    {{ project.title }}
-    {{ project.description }}
-    <img src="{{ project.image.url }}">
-
-    {% if project.url %}
-        <br><a href="{{ project.url }}">Link</a>
-    {% endif %}
-
+        <h2>{{ project.title }}</h2>
+        <p>{{ project.description }}</p>
+        {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+        {% endif %}
+        {% if project.url %}
+            <br><a href="{{ project.url }}">Link</a>
+        {% endif %}
 {% endfor %}
