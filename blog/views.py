@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def allBlogs(request):
+    return render(request, 'blog/allBlogs.html')
