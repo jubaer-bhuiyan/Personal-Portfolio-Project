@@ -10,11 +10,11 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="{% static "portfolio/custom.css" %}">
+  <link rel="stylesheet" href="{% static 'portfolio/custom.css' %}">
 
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 
-  <link rel="icon" type="image/png" href="{% static "portfolio/Logo.png" %}">
+  <link rel="icon" type="image/png" href="{% static 'portfolio/Logo.png' %}">
 
   <title>Jubaer Ahamed Bhuiyan</title>
 </head>
@@ -24,7 +24,7 @@
   <nav id="topNav" class="navbar navbar-expand-md navbar-light">
     <div class="container">
       <a class="navbar-brand" href="{% url 'home' %}">
-        <img src="{% static "portfolio/Logo.png" %}" width="30" height="30" class="d-inline-block align-top" alt="Jubaer's Logo">
+        <img src="{% static 'portfolio/Logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Jubaer's Logo">
         <span>Jubaer Ahamed Bhuiyan</span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,13 +33,13 @@
       <div class="collapse navbar-collapse text-center" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="{% static "portfolio/resume.pdf" %}">Resume</a>
+            <a class="nav-link" href="{% static 'portfolio/JubaerCV.pdf' %}">Resume</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://www.linkedin.com/in/nick-walter/" target="_blank">LinkedIn</a>
+            <a class="nav-link" href="https://www.linkedin.com/in/jubaer-ahamed-bhuiyan/" target="_blank">LinkedIn</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://twitter.com/ZappyCode" target="_blank">Twitter</a>
+            <a class="nav-link" href="https://github.com/jubaer-bhuiyan" target="_blank">GitHub</a>
           </li>
           <li>
             <a role="button" href="{% url 'blog:allBlogs' %}" class="btn btn-primary">Blog</a>
