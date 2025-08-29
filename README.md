@@ -35,7 +35,7 @@ personalPortfolioProject/
 
 1. **Clone the repository**
    ```powershell
-   git clone <your-repo-url>
+   git clone https://github.com/jubaer-bhuiyan/Personal-Portfolio-Project
    cd personalPortfolioProject
    ```
 
