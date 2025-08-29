@@ -1,11 +1,17 @@
-<h1>Jubaer's Blog</h1>
+{% extends 'portfolio/base.html' %}
 
-<h2>Jubaer has written {{ blogs.count }} blog{{ blogs.count|pluralize }}</h2>
+{% block content %}
 
-{% for blog in blogs %}
-    
-    <a href="{% url 'blog:detail' blog.id %}"><h2>{{ blog.title }}</h2></a>
-    <small>Published on: {{ blog.published_date|date:'M d Y'|upper }}</small>
-    <p>{{ blog.content|striptags|truncatechars:100 }}</p>
+    <h1>Jubaer's Blog</h1>
 
-{% endfor %}
+    <h2>Jubaer has written {{ blogs.count }} blog{{ blogs.count|pluralize }}</h2>
+
+    {% for blog in blogs %}
+        
+        <a href="{% url 'blog:detail' blog.id %}"><h2>{{ blog.title }}</h2></a>
+        <small>Published on: {{ blog.published_date|date:'M d Y'|upper }}</small>
+        <p>{{ blog.content|striptags|truncatechars:100 }}</p>
+
+    {% endfor %}
+
+{% endblock %}
