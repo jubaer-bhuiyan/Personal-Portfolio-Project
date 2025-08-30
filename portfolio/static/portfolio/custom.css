@@ -228,3 +228,14 @@ a:hover {
         height: 80px;
     }
 }
+/* Prevent horizontal scroll on mobile */
+.container {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Ensure images never overflow */
+.profile-picture {
+    max-width: 100%;
+    height: auto;
+}
