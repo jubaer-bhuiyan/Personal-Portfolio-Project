@@ -141,7 +141,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'jubaerahamed4444@gmail.com'
-EMAIL_HOST_PASSWORD = 'pzyrvzedzcmxzqil'  # See instructions below
+EMAIL_HOST_PASSWORD = ''  # See instructions below
 DEFAULT_FROM_EMAIL = 'jubaerahamed4444@gmail.com'
 
 # Email recipient for contact form
