@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional Portfolio Website">
+    <meta name="description" content="Blog - Professional Portfolio">
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -20,7 +20,7 @@
     
     <link rel="icon" type="image/png" href="{% static 'portfolio/Logo.png' %}">
     
-    <title>{% block title %}Jubaer Portfolio{% endblock %}</title>
+    <title>{% block title %}Blog - My Portfolio{% endblock %}</title>
 </head>
 <body>
     <!-- Navbar -->
@@ -39,7 +39,7 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#experience">Experience</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#education">Education</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'blog:allBlogs' %}">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'blog:allBlogs' %}">Blog</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-primary text-white px-4 ml-2" href="{% url 'home' %}#contact">Contact</a></li>
                 </ul>
             </div>
@@ -55,20 +55,9 @@
     <footer class="footer bg-dark text-white py-4 mt-5">
         <div class="container text-center">
             <div class="social-links mb-3">
-                {% if personal_info %}
-                    {% if personal_info.github %}
-                    <a href="{{ personal_info.github }}" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
-                    {% endif %}
-                    {% if personal_info.linkedin %}
-                    <a href="{{ personal_info.linkedin }}" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                    {% endif %}
-                    {% if personal_info.twitter %}
-                    <a href="{{ personal_info.twitter }}" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    {% endif %}
-                    {% if personal_info.facebook %}
-                    <a href="{{ personal_info.facebook }}" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
-                    {% endif %}
-                {% endif %}
+                <a href="https://github.com/jubaer-bhuiyan" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/jubaer-ahamed-bhuiyan/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.facebook.com/bhuiyan.jubaer" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
             </div>
             <p class="mb-0">&copy; 2026 All Rights Reserved | Made with <i class="fas fa-heart text-danger"></i> by Jubaer Ahamed Bhuiyan</p>
         </div>
@@ -80,24 +69,19 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <script>
-        // Smooth scrolling
+        // Smooth scrolling for hash links
         $(document).ready(function(){
-            $("a").on('click', function(event) {
+            $("a[href*='#']").on('click', function(event) {
                 if (this.hash !== "") {
-                    event.preventDefault();
-                    var hash = this.hash;
-                    $('html, body').animate({
-                        scrollTop: $(hash).offset().top - 70
-                    }, 800);
+                    // Only prevent default if we're on the same page
+                    if (window.location.pathname === this.pathname) {
+                        event.preventDefault();
+                        var hash = this.hash;
+                        $('html, body').animate({
+                            scrollTop: $(hash).offset().top - 70
+                        }, 800);
+                    }
                 }
-            });
-            
-            // Skill bars animation
-            $('.progress-bar').each(function() {
-                $(this).css('width', '0%');
-                $(this).animate({
-                    width: $(this).attr('aria-valuenow') + '%'
-                }, 1500);
             });
         });
         

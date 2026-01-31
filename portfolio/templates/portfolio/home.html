@@ -1,40 +1,237 @@
 {% extends "portfolio/base.html" %}
-
 {% load static %}
 
 {% block content %}
 
-<div class="row justify-content-center my-3">
-  <div class="col-5">
-    <img src="{% static 'portfolio/JubaerPP.png' %}" class="img-fluid">
-  </div>
-</div>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="row align-items-center">
+        <div class="col-lg-6 text-center text-lg-left mb-4 mb-lg-0">
+            {% if personal_info %}
+            <h1 class="display-4 font-weight-bold mb-3 fade-in">Hi, I'm <span class="text-primary">{{ personal_info.name }}</span></h1>
+            <h2 class="h3 text-muted mb-4 fade-in delay-1">{{ personal_info.title }}</h2>
+            <p class="lead mb-4 fade-in delay-2">{{ personal_info.bio }}</p>
+            <div class="fade-in delay-3">
+                {% if personal_info.resume %}
+                <a href="{{ personal_info.resume.url }}" class="btn btn-primary btn-lg mr-2" target="_blank">
+                    <i class="fas fa-download mr-2"></i>Download Resume
+                </a>
+                {% endif %}
+                <a href="#contact" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-envelope mr-2"></i>Contact Me
+                </a>
+            </div>
+            {% else %}
+            <h1 class="display-4 font-weight-bold mb-3">Welcome to My Portfolio</h1>
+            <p class="lead">Please configure your personal information in the admin panel.</p>
+            <a href="{% url 'admin:index' %}" class="btn btn-primary btn-lg mt-3">
+                <i class="fas fa-cog mr-2"></i>Go to Admin Panel
+            </a>
+            {% endif %}
+        </div>
+        <div class="col-lg-6 text-center fade-in delay-4">
+            {% if personal_info and personal_info.profile_image %}
+            <img src="{{ personal_info.profile_image.url }}" alt="{{ personal_info.name }}" class="img-fluid profile-image">
+            {% else %}
+            <img src="{% static 'portfolio/JubaerPP.png' %}" alt="Profile" class="img-fluid profile-image">
+            {% endif %}
+        </div>
+    </div>
+</section>
 
-<div class="row justify-content-center mb-3">
-  <div class="col-md-9 text-center">
-    <h1 id="hometext" class="font-weight-bold"><a href="https://www.facebook.com/bhuiyan.jubaer" target="_blank">Jubaer Ahamed Bhuiyan</a> is an undergraduate student pursuing a Bachelor of Science in <a href="https://cse.iubat.edu/" target="_blank">Computer Science and Engineering</a> at <a href="https://iubat.edu" target="_blank">IUBAT</a>, currently residing in Gazipur😊</h1>
-  </div>
-</div>
+<!-- Skills Section -->
+{% if skills %}
+<section class="section-padding" id="skills">
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="row">
+        {% for skill in skills %}
+        <div class="col-md-6 mb-4 skill-item">
+            <div class="d-flex justify-content-between mb-2">
+                <span class="skill-name">
+                    {% if skill.icon %}<i class="fab {{ skill.icon }} mr-2"></i>{% endif %}
+                    {{ skill.name }}
+                </span>
+                <span class="skill-percentage">{{ skill.proficiency }}%</span>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: {{ skill.proficiency }}%;" 
+                     aria-valuenow="{{ skill.proficiency }}" aria-valuemin="0" aria-valuemax="100">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
 
-<h2 class="mt-5">Projects</h2>
-<hr>
-<div class="row">
-  {% for project in projects %}
-  <div class="col-lg-4 col-md-6">
+<!-- Programming Languages -->
+{% if programming_languages %}
+<section class="section-padding bg-light" id="languages">
+    <h2 class="section-title">Programming Languages</h2>
+    <div class="row">
+        {% for lang in programming_languages %}
+        <div class="col-6 col-md-4 col-lg-3 mb-4">
+            <div class="language-card text-center">
+                {% if lang.icon %}
+                <i class="fab {{ lang.icon }} language-icon" style="color: {{ lang.color }};"></i>
+                {% endif %}
+                <h5 class="mt-3">{{ lang.name }}</h5>
+                <div class="progress mt-2">
+                    <div class="progress-bar" style="width: {{ lang.proficiency }}%; background-color: {{ lang.color }};" 
+                         role="progressbar" aria-valuenow="{{ lang.proficiency }}" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+                <small class="text-muted">{{ lang.proficiency }}%</small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
 
-    {% if project.url %}
-    <a href="{{ project.url }}">
-      <img src="{{ project.image.url }}" class="img-fluid mb-2">
-    </a>
-    {% else %}
+<!-- Experience Section -->
+{% if experiences %}
+<section class="section-padding" id="experience">
+    <h2 class="section-title">Work Experience</h2>
+    <div class="timeline">
+        {% for exp in experiences %}
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <h4 class="mb-1">{{ exp.title }}</h4>
+                <h5 class="text-primary mb-2">{{ exp.company }}</h5>
+                <p class="text-muted mb-2">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    {{ exp.start_date|date:"M Y" }} - {% if exp.end_date %}{{ exp.end_date|date:"M Y" }}{% else %}Present{% endif %}
+                    {% if exp.location %} | <i class="fas fa-map-marker-alt mr-1"></i>{{ exp.location }}{% endif %}
+                </p>
+                <p>{{ exp.description|linebreaks }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
 
-    <img src="{{ project.image.url }}" class="img-fluid mb-2">
-    {% endif %}
-    <h3>{{ project.title }}</h3>
-    <p>{{ project.description }}</p>
+<!-- Education Section -->
+{% if educations %}
+<section class="section-padding bg-light" id="education">
+    <h2 class="section-title">Education</h2>
+    <div class="row">
+        {% for edu in educations %}
+        <div class="col-md-6 mb-4">
+            <div class="education-card">
+                <h4 class="mb-2">{{ edu.degree }}</h4>
+                <h5 class="text-primary mb-2">{{ edu.institution }}</h5>
+                <p class="text-muted mb-2">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    {{ edu.start_year }} - {% if edu.end_year %}{{ edu.end_year }}{% else %}Present{% endif %}
+                    {% if edu.location %} | <i class="fas fa-map-marker-alt mr-1"></i>{{ edu.location }}{% endif %}
+                </p>
+                {% if edu.gpa %}
+                <p class="mb-2"><strong>GPA:</strong> {{ edu.gpa }}</p>
+                {% endif %}
+                {% if edu.description %}
+                <p>{{ edu.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
 
-  </div>
-  {% endfor %}
-</div>
+<!-- Projects Section -->
+{% if projects %}
+<section class="section-padding" id="projects">
+    <h2 class="section-title">Projects</h2>
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-fluid">
+                    <div class="project-overlay">
+                        {% if project.url %}
+                        <a href="{{ project.url }}" class="btn btn-primary" target="_blank">
+                            <i class="fas fa-external-link-alt mr-2"></i>View Project
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h4>{{ project.title }}</h4>
+                    <p>{{ project.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Certifications -->
+{% if certifications %}
+<section class="section-padding bg-light" id="certifications">
+    <h2 class="section-title">Certifications</h2>
+    <div class="row">
+        {% for cert in certifications %}
+        <div class="col-md-6 mb-4">
+            <div class="certification-card">
+                <i class="fas fa-certificate text-primary mb-3"></i>
+                <h5>{{ cert.name }}</h5>
+                <p class="text-muted mb-2">{{ cert.issuer }}</p>
+                <p class="mb-2"><small>{{ cert.date_obtained|date:"F Y" }}</small></p>
+                {% if cert.credential_url %}
+                <a href="{{ cert.credential_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-link mr-1"></i>View Credential
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Contact Section -->
+<section class="section-padding" id="contact">
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="POST" class="contact-form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" name="message" rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                    <i class="fas fa-paper-plane mr-2"></i>Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

@@ -1,13 +1,29 @@
-{% extends 'portfolio/base.html' %}
-
+{% extends "blog/base_blog.html" %}
 {% load static %}
 
 {% block content %}
 
-<h1 class="text-center mt-5" id="blogdetailtitle">{{ blog.title }}</h1>
-
-<h5 class="text-center text-muted mb-5">{{ blog.published_date|date:'F jS Y' }}</h5>
-
-{{ blog.content|safe }}
+<article>
+    <h1 class="mb-3">{{ blog.title }}</h1>
+    <p class="text-muted mb-4">
+        <i class="far fa-calendar-alt"></i> {{ blog.published_date|date:"F d, Y" }}
+    </p>
+    
+    <!-- {% if blog.image %}
+    <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="img-fluid rounded mb-4">
+    {% endif %} -->
+    
+    <div class="blog-content">
+        {{ blog.content|safe|linebreaks }}
+    </div>
+    
+    <hr class="my-5">
+    
+    <div class="text-center">
+        <a href="{% url 'blog:allBlogs' %}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left mr-2"></i> Back to All Blogs
+        </a>
+    </div>
+</article>
 
 {% endblock %}
